@@ -1,17 +1,16 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="vi">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>초과근무 관리 시스템</title>
+<title>Quản Lý Tăng Ca</title>
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=JetBrains+Mono:wght@400;600&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans:wght@300;400;500;700;900&family=JetBrains+Mono:wght@400;600&display=swap');
 
   :root {
     --primary: #1B4F72;
     --primary-light: #2E86C1;
     --accent: #F39C12;
-    --accent-light: #F8C471;
     --danger: #C0392B;
     --success: #1E8449;
     --success-light: #27AE60;
@@ -27,421 +26,207 @@
   }
 
   * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+  body { font-family: 'Noto Sans', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; overflow-x: hidden; }
 
-  body {
-    font-family: 'Noto Sans KR', sans-serif;
-    background: var(--bg);
-    color: var(--text);
-    min-height: 100vh;
-    overflow-x: hidden;
-  }
-
-  /* ── SCREENS ── */
   .screen { display: none; min-height: 100vh; }
   .screen.active { display: flex; flex-direction: column; }
 
-  /* ── HEADER ── */
   .app-header {
-    background: var(--primary);
-    color: #fff;
+    background: var(--primary); color: #fff;
     padding: 16px 20px 12px;
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    position: sticky;
-    top: 0;
-    z-index: 100;
+    display: flex; align-items: center; gap: 12px;
+    position: sticky; top: 0; z-index: 100;
     box-shadow: 0 2px 12px rgba(0,0,0,0.2);
   }
   .app-header .back-btn {
-    width: 36px; height: 36px;
-    border-radius: 50%;
-    background: rgba(255,255,255,0.15);
-    border: none;
-    color: #fff;
-    font-size: 18px;
-    cursor: pointer;
+    width: 36px; height: 36px; border-radius: 50%;
+    background: rgba(255,255,255,0.15); border: none;
+    color: #fff; font-size: 18px; cursor: pointer;
     display: flex; align-items: center; justify-content: center;
-    transition: background 0.2s;
   }
-  .app-header .back-btn:hover { background: rgba(255,255,255,0.25); }
   .app-header h1 { font-size: 17px; font-weight: 700; flex: 1; }
   .app-header .subtitle { font-size: 12px; opacity: 0.75; margin-top: 2px; }
 
-  /* ── MAIN HOME ── */
+  /* HOME */
   #screen-home {
     background: linear-gradient(160deg, #1B4F72 0%, #2E86C1 40%, #1A5276 100%);
-    align-items: center;
-    justify-content: center;
-    padding: 40px 24px;
+    align-items: center; justify-content: center; padding: 40px 24px;
   }
-  .home-logo {
-    text-align: center;
-    margin-bottom: 48px;
-    color: #fff;
-  }
+  .home-logo { text-align: center; margin-bottom: 48px; color: #fff; }
   .home-logo .icon-wrap {
-    width: 90px; height: 90px;
-    background: rgba(255,255,255,0.15);
-    border-radius: 28px;
-    display: flex; align-items: center; justify-content: center;
-    margin: 0 auto 20px;
-    font-size: 42px;
-    box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+    width: 90px; height: 90px; background: rgba(255,255,255,0.15);
+    border-radius: 28px; display: flex; align-items: center; justify-content: center;
+    margin: 0 auto 20px; font-size: 42px; box-shadow: 0 8px 32px rgba(0,0,0,0.2);
   }
   .home-logo h1 { font-size: 26px; font-weight: 900; letter-spacing: -0.5px; }
   .home-logo p { font-size: 14px; opacity: 0.75; margin-top: 6px; }
-
   .home-btns { width: 100%; max-width: 340px; display: flex; flex-direction: column; gap: 16px; }
   .home-btn {
-    background: rgba(255,255,255,0.12);
-    border: 1.5px solid rgba(255,255,255,0.3);
-    border-radius: 20px;
-    padding: 24px 28px;
-    color: #fff;
-    cursor: pointer;
-    transition: all 0.2s;
-    display: flex;
-    align-items: center;
-    gap: 18px;
+    background: rgba(255,255,255,0.12); border: 1.5px solid rgba(255,255,255,0.3);
+    border-radius: 20px; padding: 24px 28px; color: #fff; cursor: pointer;
+    transition: all 0.2s; display: flex; align-items: center; gap: 18px;
     backdrop-filter: blur(10px);
   }
-  .home-btn:hover, .home-btn:active { background: rgba(255,255,255,0.22); transform: translateY(-2px); }
+  .home-btn:hover { background: rgba(255,255,255,0.22); transform: translateY(-2px); }
   .home-btn .btn-icon { font-size: 36px; }
   .home-btn .btn-text h2 { font-size: 18px; font-weight: 700; }
   .home-btn .btn-text p { font-size: 13px; opacity: 0.75; margin-top: 3px; }
   .home-btn.admin-btn { border-color: var(--accent); }
-  .home-btn.admin-btn .btn-icon { color: var(--accent); }
 
-  /* ── WORKER HOME ── */
-  #screen-worker {
-    background: var(--bg);
-  }
+  /* WORKER */
+  #screen-worker { background: var(--bg); }
   .worker-header {
     background: linear-gradient(135deg, #1B4F72, #2E86C1);
-    color: #fff;
-    padding: 20px 20px 24px;
-    text-align: center;
+    color: #fff; padding: 20px 20px 24px; text-align: center;
   }
   .worker-header h2 { font-size: 20px; font-weight: 700; }
   .worker-header p { font-size: 13px; opacity: 0.8; margin-top: 4px; }
-
-  .worker-actions {
-    padding: 20px 16px;
-    display: flex;
-    flex-direction: column;
-    gap: 14px;
-  }
+  .worker-actions { padding: 20px 16px; display: flex; flex-direction: column; gap: 14px; }
   .action-card {
-    background: var(--card);
-    border-radius: var(--radius);
-    padding: 22px 20px;
-    display: flex;
-    align-items: center;
-    gap: 16px;
-    cursor: pointer;
-    transition: all 0.2s;
-    box-shadow: var(--shadow);
-    border: 2px solid transparent;
+    background: var(--card); border-radius: var(--radius);
+    padding: 22px 20px; display: flex; align-items: center; gap: 16px;
+    cursor: pointer; transition: all 0.2s; box-shadow: var(--shadow); border: 2px solid transparent;
   }
   .action-card:hover { transform: translateY(-2px); box-shadow: var(--shadow-lg); }
-  .action-card:active { transform: translateY(0); }
   .action-card.start-card { border-color: var(--success); }
   .action-card.end-card { border-color: var(--danger); }
   .action-card .card-icon {
-    width: 56px; height: 56px;
-    border-radius: 16px;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 26px;
-    flex-shrink: 0;
+    width: 56px; height: 56px; border-radius: 16px;
+    display: flex; align-items: center; justify-content: center; font-size: 26px; flex-shrink: 0;
   }
   .start-card .card-icon { background: #E8F8F5; }
   .end-card .card-icon { background: #FDEDEC; }
   .action-card .card-info h3 { font-size: 16px; font-weight: 700; }
   .action-card .card-info p { font-size: 13px; color: var(--text-sub); margin-top: 4px; }
 
-  /* ── FORMS ── */
+  /* FORMS */
   .form-screen { background: var(--bg); }
-  .form-body { padding: 20px 16px; flex: 1; }
+  .form-body { padding: 20px 16px; flex: 1; overflow-y: auto; }
   .form-group { margin-bottom: 18px; }
   .form-group label {
-    display: block;
-    font-size: 13px;
-    font-weight: 600;
-    color: var(--text-sub);
-    margin-bottom: 7px;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
+    display: block; font-size: 13px; font-weight: 600; color: var(--text-sub);
+    margin-bottom: 7px; text-transform: uppercase; letter-spacing: 0.5px;
   }
   .form-group label .req { color: var(--danger); }
   .form-input, .form-select, .form-textarea {
-    width: 100%;
-    padding: 14px 16px;
-    border: 1.5px solid var(--border);
-    border-radius: var(--radius-sm);
-    font-family: 'Noto Sans KR', sans-serif;
-    font-size: 15px;
-    color: var(--text);
-    background: var(--card);
-    transition: border-color 0.2s, box-shadow 0.2s;
-    appearance: none;
+    width: 100%; padding: 14px 16px; border: 1.5px solid var(--border);
+    border-radius: var(--radius-sm); font-family: 'Noto Sans', sans-serif;
+    font-size: 15px; color: var(--text); background: var(--card);
+    transition: border-color 0.2s, box-shadow 0.2s; appearance: none;
   }
   .form-input:focus, .form-select:focus, .form-textarea:focus {
-    outline: none;
-    border-color: var(--primary-light);
+    outline: none; border-color: var(--primary-light);
     box-shadow: 0 0 0 3px rgba(46,134,193,0.15);
   }
   .form-textarea { min-height: 90px; resize: vertical; }
   .form-select {
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%235D6D7E' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
-    background-repeat: no-repeat;
-    background-position: right 14px center;
-    padding-right: 38px;
+    background-repeat: no-repeat; background-position: right 14px center; padding-right: 38px;
   }
 
-  /* ── TYPE SELECTOR ── */
   .type-selector { display: flex; gap: 8px; flex-wrap: wrap; }
   .type-btn {
-    flex: 1;
-    min-width: calc(33.33% - 6px);
-    padding: 12px 8px;
-    border: 1.5px solid var(--border);
-    border-radius: var(--radius-sm);
-    background: var(--card);
-    font-family: 'Noto Sans KR', sans-serif;
-    font-size: 13px;
-    font-weight: 500;
-    color: var(--text-sub);
-    cursor: pointer;
+    flex: 1; min-width: calc(33.33% - 6px); padding: 12px 8px;
+    border: 1.5px solid var(--border); border-radius: var(--radius-sm);
+    background: var(--card); font-family: 'Noto Sans', sans-serif;
+    font-size: 13px; font-weight: 500; color: var(--text-sub); cursor: pointer; text-align: center;
     transition: all 0.2s;
-    text-align: center;
   }
-  .type-btn.active {
-    background: var(--primary);
-    border-color: var(--primary);
-    color: #fff;
-    font-weight: 700;
-  }
+  .type-btn.active { background: var(--primary); border-color: var(--primary); color: #fff; font-weight: 700; }
 
-  /* ── GPS STATUS ── */
+  /* GPS */
   .gps-card {
-    background: var(--card);
-    border-radius: var(--radius-sm);
-    padding: 14px 16px;
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    border: 1.5px solid var(--border);
-    margin-bottom: 18px;
+    background: var(--card); border-radius: var(--radius-sm); padding: 14px 16px;
+    display: flex; align-items: center; gap: 12px; border: 1.5px solid var(--border); margin-bottom: 18px;
   }
-  .gps-dot {
-    width: 12px; height: 12px;
-    border-radius: 50%;
-    background: #aaa;
-    flex-shrink: 0;
-    transition: background 0.3s;
-  }
+  .gps-dot { width: 12px; height: 12px; border-radius: 50%; background: #aaa; flex-shrink: 0; transition: background 0.3s; }
   .gps-dot.ok { background: var(--success-light); box-shadow: 0 0 0 4px rgba(39,174,96,0.2); }
   .gps-dot.fail { background: var(--danger); box-shadow: 0 0 0 4px rgba(192,57,43,0.2); }
   .gps-dot.checking { background: var(--accent); animation: pulse 1s infinite; }
   @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }
-  .gps-info { flex: 1; }
   .gps-info .gps-label { font-size: 13px; font-weight: 600; }
   .gps-info .gps-sub { font-size: 12px; color: var(--text-sub); margin-top: 2px; }
 
-  /* ── CAMERA ── */
+  /* CAMERA */
   .camera-section {
-    background: var(--card);
-    border-radius: var(--radius);
-    overflow: hidden;
-    border: 1.5px solid var(--border);
-    margin-bottom: 18px;
+    background: var(--card); border-radius: var(--radius);
+    overflow: hidden; border: 1.5px solid var(--border); margin-bottom: 18px;
   }
   .camera-header {
-    padding: 14px 16px;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    border-bottom: 1px solid var(--border);
+    padding: 14px 16px; display: flex; align-items: center; gap: 10px; border-bottom: 1px solid var(--border);
   }
   .camera-header .cam-icon { font-size: 20px; }
   .camera-header h3 { font-size: 14px; font-weight: 700; }
   .camera-header p { font-size: 12px; color: var(--text-sub); margin-top: 2px; }
-
-  #camera-video {
-    width: 100%;
-    max-height: 260px;
-    object-fit: cover;
-    display: block;
-    background: #000;
-  }
-  #photo-preview {
-    width: 100%;
-    max-height: 260px;
-    object-fit: cover;
-    display: none;
-  }
-  .camera-controls {
-    padding: 14px 16px;
-    display: flex;
-    gap: 10px;
-  }
+  .camera-controls { padding: 14px 16px; display: flex; gap: 10px; }
   .cam-btn {
-    flex: 1;
-    padding: 12px;
-    border-radius: var(--radius-sm);
-    border: none;
-    font-family: 'Noto Sans KR', sans-serif;
-    font-size: 14px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.2s;
+    flex: 1; padding: 12px; border-radius: var(--radius-sm); border: none;
+    font-family: 'Noto Sans', sans-serif; font-size: 14px; font-weight: 600; cursor: pointer; transition: all 0.2s;
   }
   .cam-btn.shoot { background: var(--primary); color: #fff; }
   .cam-btn.retake { background: var(--bg); color: var(--text); border: 1.5px solid var(--border); }
   .cam-btn:disabled { opacity: 0.4; cursor: not-allowed; }
 
-  /* ── SUBMIT BTN ── */
   .submit-btn {
-    width: 100%;
-    padding: 18px;
-    background: var(--primary);
-    color: #fff;
-    border: none;
-    border-radius: var(--radius);
-    font-family: 'Noto Sans KR', sans-serif;
-    font-size: 16px;
-    font-weight: 700;
-    cursor: pointer;
-    transition: all 0.2s;
-    margin-top: 8px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
+    width: 100%; padding: 18px; background: var(--primary); color: #fff; border: none;
+    border-radius: var(--radius); font-family: 'Noto Sans', sans-serif; font-size: 16px; font-weight: 700;
+    cursor: pointer; transition: all 0.2s; margin-top: 8px; display: flex; align-items: center; justify-content: center; gap: 8px;
   }
   .submit-btn:hover { background: #154360; transform: translateY(-1px); }
   .submit-btn:disabled { background: #aaa; cursor: not-allowed; transform: none; }
 
-  /* ── WORKER LIST ── */
-  .worker-list-select {
-    background: var(--card);
-    border-radius: var(--radius);
-    overflow: hidden;
-    border: 1.5px solid var(--border);
-    margin-bottom: 4px;
-  }
+  /* WORKER LIST */
+  .worker-list-select { background: var(--card); border-radius: var(--radius); overflow: hidden; border: 1.5px solid var(--border); margin-bottom: 4px; }
   .worker-list-item {
-    padding: 16px;
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    cursor: pointer;
-    border-bottom: 1px solid var(--border);
-    transition: background 0.15s;
+    padding: 16px; display: flex; align-items: center; gap: 12px;
+    cursor: pointer; border-bottom: 1px solid var(--border); transition: background 0.15s;
   }
   .worker-list-item:last-child { border-bottom: none; }
   .worker-list-item:hover { background: var(--bg); }
   .worker-list-item.selected { background: #EAF4FF; border-left: 3px solid var(--primary-light); }
   .worker-list-item .wli-icon {
-    width: 42px; height: 42px;
-    border-radius: 12px;
+    width: 42px; height: 42px; border-radius: 12px;
     background: linear-gradient(135deg, var(--primary), var(--primary-light));
-    display: flex; align-items: center; justify-content: center;
-    color: #fff;
-    font-size: 18px;
-    flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center; color: #fff; font-size: 18px; flex-shrink: 0;
   }
   .worker-list-item .wli-info .wli-name { font-size: 15px; font-weight: 600; }
   .worker-list-item .wli-info .wli-type { font-size: 12px; color: var(--text-sub); margin-top: 2px; }
   .worker-list-item .wli-check { margin-left: auto; color: var(--primary-light); font-size: 20px; opacity: 0; }
   .worker-list-item.selected .wli-check { opacity: 1; }
 
-  /* ── ADMIN ── */
+  /* ADMIN PW */
   #screen-admin-pw {
     background: linear-gradient(160deg, #1B4F72 0%, #2E86C1 100%);
-    align-items: center;
-    justify-content: center;
-    padding: 40px 24px;
+    align-items: center; justify-content: center; padding: 40px 24px;
   }
   .pw-card {
-    background: #fff;
-    border-radius: 24px;
-    padding: 36px 28px;
-    width: 100%;
-    max-width: 360px;
-    text-align: center;
-    box-shadow: var(--shadow-lg);
+    background: #fff; border-radius: 24px; padding: 36px 28px;
+    width: 100%; max-width: 360px; text-align: center; box-shadow: var(--shadow-lg);
   }
   .pw-card .pw-icon { font-size: 48px; margin-bottom: 16px; }
   .pw-card h2 { font-size: 20px; font-weight: 700; margin-bottom: 6px; }
   .pw-card p { font-size: 14px; color: var(--text-sub); margin-bottom: 24px; }
   .pw-input-wrap { position: relative; margin-bottom: 16px; }
   .pw-input {
-    width: 100%;
-    padding: 16px 48px 16px 16px;
-    border: 2px solid var(--border);
-    border-radius: var(--radius-sm);
-    font-family: 'Noto Sans KR', sans-serif;
-    font-size: 18px;
-    text-align: center;
-    letter-spacing: 4px;
-    transition: border-color 0.2s;
+    width: 100%; padding: 16px 48px 16px 16px; border: 2px solid var(--border);
+    border-radius: var(--radius-sm); font-family: 'Noto Sans', sans-serif;
+    font-size: 18px; text-align: center; letter-spacing: 4px; transition: border-color 0.2s;
   }
   .pw-input:focus { outline: none; border-color: var(--primary-light); }
-  .pw-toggle {
-    position: absolute; right: 14px; top: 50%; transform: translateY(-50%);
-    background: none; border: none; font-size: 20px; cursor: pointer; color: var(--text-sub);
-  }
+  .pw-toggle { position: absolute; right: 14px; top: 50%; transform: translateY(-50%); background: none; border: none; font-size: 20px; cursor: pointer; color: var(--text-sub); }
   .pw-error { color: var(--danger); font-size: 13px; margin-bottom: 12px; display: none; }
-  .pw-submit {
-    width: 100%;
-    padding: 16px;
-    background: var(--primary);
-    color: #fff;
-    border: none;
-    border-radius: var(--radius-sm);
-    font-family: 'Noto Sans KR', sans-serif;
-    font-size: 16px;
-    font-weight: 700;
-    cursor: pointer;
-  }
+  .pw-submit { width: 100%; padding: 16px; background: var(--primary); color: #fff; border: none; border-radius: var(--radius-sm); font-family: 'Noto Sans', sans-serif; font-size: 16px; font-weight: 700; cursor: pointer; }
 
-  /* ── ADMIN DASHBOARD ── */
-  .admin-stats {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 10px;
-    padding: 16px;
-  }
-  .stat-card {
-    background: var(--card);
-    border-radius: var(--radius-sm);
-    padding: 14px 10px;
-    text-align: center;
-    box-shadow: var(--shadow);
-  }
+  /* ADMIN DASHBOARD */
+  .admin-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; padding: 16px; }
+  .stat-card { background: var(--card); border-radius: var(--radius-sm); padding: 14px 10px; text-align: center; box-shadow: var(--shadow); }
   .stat-card .stat-val { font-size: 26px; font-weight: 900; color: var(--primary); }
   .stat-card .stat-label { font-size: 11px; color: var(--text-sub); margin-top: 2px; }
-
-  .section-title {
-    font-size: 13px;
-    font-weight: 700;
-    color: var(--text-sub);
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    padding: 0 16px 8px;
-  }
-
+  .section-title { font-size: 13px; font-weight: 700; color: var(--text-sub); text-transform: uppercase; letter-spacing: 0.5px; padding: 0 16px 8px; }
   .record-list { padding: 0 16px 20px; display: flex; flex-direction: column; gap: 10px; }
   .record-card {
-    background: var(--card);
-    border-radius: var(--radius);
-    padding: 16px;
-    box-shadow: var(--shadow);
-    cursor: pointer;
-    transition: all 0.2s;
-    border-left: 4px solid var(--border);
+    background: var(--card); border-radius: var(--radius); padding: 16px;
+    box-shadow: var(--shadow); cursor: pointer; transition: all 0.2s; border-left: 4px solid var(--border);
   }
   .record-card:hover { transform: translateY(-1px); box-shadow: var(--shadow-lg); }
   .record-card.pending { border-left-color: var(--accent); }
@@ -449,569 +234,384 @@
   .record-card.rejected { border-left-color: var(--danger); }
   .record-card .rc-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; }
   .record-card .rc-name { font-size: 16px; font-weight: 700; }
-  .status-badge {
-    font-size: 12px;
-    font-weight: 600;
-    padding: 4px 10px;
-    border-radius: 20px;
-  }
+  .status-badge { font-size: 12px; font-weight: 600; padding: 4px 10px; border-radius: 20px; }
   .status-badge.pending { background: #FEF9E7; color: #9A7D0A; }
   .status-badge.approved { background: #EAFAF1; color: #1E8449; }
   .status-badge.rejected { background: #FDEDEC; color: #C0392B; }
   .record-card .rc-meta { font-size: 13px; color: var(--text-sub); display: flex; gap: 12px; flex-wrap: wrap; }
 
-  /* ── ADMIN DETAIL ── */
-  .detail-section {
-    background: var(--card);
-    border-radius: var(--radius);
-    margin: 16px;
-    padding: 20px;
-    box-shadow: var(--shadow);
-  }
-  .detail-section h3 {
-    font-size: 14px;
-    font-weight: 700;
-    color: var(--text-sub);
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    margin-bottom: 14px;
-    padding-bottom: 10px;
-    border-bottom: 1px solid var(--border);
-  }
+  /* ADMIN DETAIL */
+  .detail-section { background: var(--card); border-radius: var(--radius); margin: 16px; padding: 20px; box-shadow: var(--shadow); }
+  .detail-section h3 { font-size: 14px; font-weight: 700; color: var(--text-sub); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 14px; padding-bottom: 10px; border-bottom: 1px solid var(--border); }
   .detail-row { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; margin-bottom: 10px; }
   .detail-row:last-child { margin-bottom: 0; }
   .detail-row .dr-label { font-size: 13px; color: var(--text-sub); flex-shrink: 0; }
   .detail-row .dr-val { font-size: 13px; font-weight: 600; text-align: right; }
-
-  .photo-preview-admin {
-    width: 100%;
-    border-radius: var(--radius-sm);
-    max-height: 200px;
-    object-fit: cover;
-    background: var(--bg);
-    margin-top: 8px;
-  }
-  .photo-placeholder {
-    width: 100%;
-    height: 100px;
-    background: var(--bg);
-    border-radius: var(--radius-sm);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: var(--text-sub);
-    font-size: 13px;
-    margin-top: 8px;
-  }
-
+  .photo-preview-admin { width: 100%; border-radius: var(--radius-sm); max-height: 200px; object-fit: cover; background: var(--bg); margin-top: 8px; }
+  .photo-placeholder { width: 100%; height: 100px; background: var(--bg); border-radius: var(--radius-sm); display: flex; align-items: center; justify-content: center; color: var(--text-sub); font-size: 13px; margin-top: 8px; }
   .admin-actions { display: flex; gap: 10px; padding: 0 16px 16px; }
-  .admin-action-btn {
-    flex: 1;
-    padding: 16px 10px;
-    border-radius: var(--radius-sm);
-    border: none;
-    font-family: 'Noto Sans KR', sans-serif;
-    font-size: 14px;
-    font-weight: 700;
-    cursor: pointer;
-    transition: all 0.2s;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 4px;
-  }
+  .admin-action-btn { flex: 1; padding: 16px 10px; border-radius: var(--radius-sm); border: none; font-family: 'Noto Sans', sans-serif; font-size: 14px; font-weight: 700; cursor: pointer; transition: all 0.2s; display: flex; flex-direction: column; align-items: center; gap: 4px; }
   .admin-action-btn .aab-icon { font-size: 22px; }
   .btn-approve { background: var(--success-light); color: #fff; }
   .btn-reject { background: var(--danger); color: #fff; }
   .btn-edit { background: var(--bg); color: var(--text); border: 1.5px solid var(--border); }
-  .btn-approve:hover { background: #1E8449; }
-  .btn-reject:hover { background: #922B21; }
 
-  /* ── EDIT MODAL ── */
-  .modal-overlay {
-    position: fixed;
-    inset: 0;
-    background: rgba(0,0,0,0.5);
-    z-index: 200;
-    display: none;
-    align-items: flex-end;
-    justify-content: center;
-  }
+  /* SETTINGS */
+  .settings-section { background: var(--card); border-radius: var(--radius); margin: 16px; padding: 20px; box-shadow: var(--shadow); }
+  .settings-section h3 { font-size: 14px; font-weight: 700; color: var(--text-sub); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 14px; }
+
+  /* MODAL */
+  .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 200; display: none; align-items: flex-end; justify-content: center; }
   .modal-overlay.open { display: flex; }
-  .modal-sheet {
-    background: var(--card);
-    border-radius: 24px 24px 0 0;
-    width: 100%;
-    max-width: 520px;
-    padding: 24px 20px 32px;
-    max-height: 80vh;
-    overflow-y: auto;
-  }
-  .modal-handle {
-    width: 40px; height: 4px;
-    background: var(--border);
-    border-radius: 2px;
-    margin: 0 auto 20px;
-  }
+  .modal-sheet { background: var(--card); border-radius: 24px 24px 0 0; width: 100%; max-width: 520px; padding: 24px 20px 32px; max-height: 80vh; overflow-y: auto; }
+  .modal-handle { width: 40px; height: 4px; background: var(--border); border-radius: 2px; margin: 0 auto 20px; }
   .modal-sheet h2 { font-size: 18px; font-weight: 700; margin-bottom: 16px; }
 
-  /* ── SETTINGS ── */
-  .settings-section {
-    background: var(--card);
-    border-radius: var(--radius);
-    margin: 16px;
-    padding: 20px;
-    box-shadow: var(--shadow);
-  }
-  .settings-section h3 {
-    font-size: 14px;
-    font-weight: 700;
-    color: var(--text-sub);
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    margin-bottom: 14px;
-  }
-
-  /* ── TOAST ── */
-  .toast {
-    position: fixed;
-    bottom: 24px;
-    left: 50%;
-    transform: translateX(-50%) translateY(80px);
-    background: #1C2833;
-    color: #fff;
-    padding: 14px 24px;
-    border-radius: 40px;
-    font-size: 14px;
-    font-weight: 500;
-    z-index: 300;
-    transition: transform 0.3s ease;
-    white-space: nowrap;
-    max-width: 90vw;
-    text-align: center;
-  }
+  /* TOAST */
+  .toast { position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%) translateY(80px); background: #1C2833; color: #fff; padding: 14px 24px; border-radius: 40px; font-size: 14px; font-weight: 500; z-index: 300; transition: transform 0.3s ease; white-space: nowrap; max-width: 90vw; text-align: center; }
   .toast.show { transform: translateX(-50%) translateY(0); }
   .toast.success { background: var(--success); }
   .toast.error { background: var(--danger); }
 
-  /* ── LOADING ── */
-  .loading-overlay {
-    position: fixed;
-    inset: 0;
-    background: rgba(0,0,0,0.5);
-    z-index: 400;
-    display: none;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    gap: 16px;
-    color: #fff;
-  }
+  /* LOADING */
+  .loading-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 400; display: none; align-items: center; justify-content: center; flex-direction: column; gap: 16px; color: #fff; }
   .loading-overlay.show { display: flex; }
-  .spinner {
-    width: 48px; height: 48px;
-    border: 4px solid rgba(255,255,255,0.3);
-    border-top-color: #fff;
-    border-radius: 50%;
-    animation: spin 0.8s linear infinite;
-  }
+  .spinner { width: 48px; height: 48px; border: 4px solid rgba(255,255,255,0.3); border-top-color: #fff; border-radius: 50%; animation: spin 0.8s linear infinite; }
   @keyframes spin { to { transform: rotate(360deg); } }
   .loading-overlay p { font-size: 15px; font-weight: 500; }
 
-  /* ── EMPTY STATE ── */
-  .empty-state {
-    text-align: center;
-    padding: 48px 24px;
-    color: var(--text-sub);
-  }
+  .empty-state { text-align: center; padding: 48px 24px; color: var(--text-sub); }
   .empty-state .es-icon { font-size: 48px; margin-bottom: 12px; }
   .empty-state p { font-size: 15px; }
 
-  /* ── FILTER TABS ── */
-  .filter-tabs {
-    display: flex;
-    gap: 8px;
-    padding: 0 16px 12px;
-    overflow-x: auto;
-  }
-  .filter-tab {
-    padding: 8px 16px;
-    border-radius: 20px;
-    border: 1.5px solid var(--border);
-    background: var(--card);
-    font-family: 'Noto Sans KR', sans-serif;
-    font-size: 13px;
-    font-weight: 500;
-    cursor: pointer;
-    white-space: nowrap;
-    transition: all 0.2s;
-  }
+  .filter-tabs { display: flex; gap: 8px; padding: 0 16px 12px; overflow-x: auto; }
+  .filter-tab { padding: 8px 16px; border-radius: 20px; border: 1.5px solid var(--border); background: var(--card); font-family: 'Noto Sans', sans-serif; font-size: 13px; font-weight: 500; cursor: pointer; white-space: nowrap; transition: all 0.2s; }
   .filter-tab.active { background: var(--primary); border-color: var(--primary); color: #fff; font-weight: 700; }
 
-  .info-banner {
-    background: #EBF5FB;
-    border: 1.5px solid #AED6F1;
-    border-radius: var(--radius-sm);
-    padding: 12px 14px;
-    display: flex;
-    gap: 10px;
-    align-items: flex-start;
-    margin-bottom: 16px;
-    font-size: 13px;
-    color: #1A5276;
-  }
-  .info-banner .ib-icon { font-size: 16px; flex-shrink: 0; }
-
-  canvas#photo-canvas { display: none; }
+  .info-banner { background: #EBF5FB; border: 1.5px solid #AED6F1; border-radius: var(--radius-sm); padding: 12px 14px; display: flex; gap: 10px; align-items: flex-start; margin-bottom: 16px; font-size: 13px; color: #1A5276; }
 </style>
 </head>
 <body>
 
-<!-- ════════════════════════════ HOME ════════════════════════════ -->
+<!-- HOME -->
 <div id="screen-home" class="screen active">
   <div class="home-logo">
     <div class="icon-wrap">🏗️</div>
-    <h1>초과근무 관리</h1>
-    <p>건설현장 초과근무 기록 시스템</p>
+    <h1>Quản Lý Tăng Ca</h1>
+    <p>Hệ thống quản lý tăng ca công trường</p>
   </div>
   <div class="home-btns">
     <button class="home-btn" onclick="gotoWorker()">
       <span class="btn-icon">👷</span>
       <div class="btn-text">
-        <h2>근무자</h2>
-        <p>초과근무 신청 및 완료 처리</p>
+        <h2>Nhân viên</h2>
+        <p>Đăng ký và hoàn thành tăng ca</p>
       </div>
     </button>
     <button class="home-btn admin-btn" onclick="gotoAdminPW()">
       <span class="btn-icon" style="color:#F39C12">🔐</span>
       <div class="btn-text">
-        <h2>관리자</h2>
-        <p>초과근무 현황 조회 및 승인</p>
-      </div>
-    </button>
-    <button class="home-btn" onclick="showSettings()" style="margin-top:4px; border-color:rgba(255,255,255,0.15);">
-      <span class="btn-icon">⚙️</span>
-      <div class="btn-text">
-        <h2>환경설정</h2>
-        <p>GPS, 비밀번호, 시트 URL 설정</p>
+        <h2>Quản lý</h2>
+        <p>Xem và duyệt tăng ca</p>
       </div>
     </button>
   </div>
 </div>
 
-<!-- ════════════════════════════ WORKER SELECT ════════════════════════════ -->
+<!-- WORKER SELECT -->
 <div id="screen-worker" class="screen">
   <div class="worker-header">
-    <button class="back-btn" onclick="goHome()" style="background:rgba(255,255,255,0.15);border:none;color:#fff;font-size:18px;padding:6px 12px;border-radius:10px;cursor:pointer;margin-bottom:8px;">← 홈</button>
-    <h2>초과근무 신청</h2>
-    <p>아래 메뉴를 선택해 주세요</p>
+    <button onclick="goHome()" style="background:rgba(255,255,255,0.15);border:none;color:#fff;font-size:14px;padding:6px 12px;border-radius:10px;cursor:pointer;margin-bottom:8px;font-family:'Noto Sans',sans-serif;">← Quay lại</button>
+    <h2>Đăng ký tăng ca</h2>
+    <p>Vui lòng chọn thao tác bên dưới</p>
   </div>
   <div class="worker-actions">
     <div class="action-card start-card" onclick="gotoForm('start')">
       <div class="card-icon">🟢</div>
       <div class="card-info">
-        <h3>근무 시작</h3>
-        <p>초과근무를 시작할 때 누르세요</p>
+        <h3>Bắt đầu ca</h3>
+        <p>Nhấn khi bắt đầu tăng ca</p>
       </div>
       <span style="margin-left:auto;font-size:22px;color:var(--text-sub)">›</span>
     </div>
     <div class="action-card end-card" onclick="gotoEndForm()">
       <div class="card-icon">🔴</div>
       <div class="card-info">
-        <h3>근무 종료</h3>
-        <p>초과근무를 완료할 때 누르세요</p>
+        <h3>Kết thúc ca</h3>
+        <p>Nhấn khi hoàn thành tăng ca</p>
       </div>
       <span style="margin-left:auto;font-size:22px;color:var(--text-sub)">›</span>
     </div>
   </div>
 </div>
 
-<!-- ════════════════════════════ FORM: START ════════════════════════════ -->
+<!-- FORM: START -->
 <div id="screen-form-start" class="screen form-screen">
   <div class="app-header">
     <button class="back-btn" onclick="showScreen('screen-worker')">←</button>
     <div>
-      <h1>근무 시작 신청</h1>
-      <div class="subtitle">초과근무 시작 정보를 입력해 주세요</div>
+      <h1>Đăng ký bắt đầu ca</h1>
+      <div class="subtitle">Nhập thông tin tăng ca của bạn</div>
     </div>
   </div>
-  <div class="form-body" id="form-start-body">
-    <!-- GPS -->
-    <div class="gps-card" id="gps-card-start">
+  <div class="form-body">
+    <div class="gps-card">
       <div class="gps-dot checking" id="gps-dot-start"></div>
       <div class="gps-info">
-        <div class="gps-label" id="gps-label-start">위치 확인 중...</div>
-        <div class="gps-sub" id="gps-sub-start">GPS 신호를 받고 있습니다</div>
+        <div class="gps-label" id="gps-label-start">Đang kiểm tra vị trí...</div>
+        <div class="gps-sub" id="gps-sub-start">Đang nhận tín hiệu GPS</div>
       </div>
     </div>
-
-    <!-- 이름 -->
     <div class="form-group">
-      <label>이름 <span class="req">*</span></label>
-      <input type="text" id="start-name" class="form-input" placeholder="이름을 입력해 주세요">
+      <label>Họ và tên <span class="req">*</span></label>
+      <input type="text" id="start-name" class="form-input" placeholder="Nhập họ và tên">
     </div>
-
-    <!-- 근무 장소 -->
     <div class="form-group">
-      <label>초과근무 장소 <span class="req">*</span></label>
-      <input type="text" id="start-location" class="form-input" placeholder="근무 장소를 입력해 주세요">
+      <label>Địa điểm tăng ca <span class="req">*</span></label>
+      <input type="text" id="start-location" class="form-input" placeholder="Nhập địa điểm làm việc">
     </div>
-
-    <!-- 작업 유형 -->
     <div class="form-group">
-      <label>작업자 유형 <span class="req">*</span></label>
+      <label>Loại công nhân <span class="req">*</span></label>
       <div class="type-selector">
-        <button class="type-btn" data-type="작업자" onclick="selectType(this)">👷 작업자</button>
-        <button class="type-btn" data-type="타워크레인 운전기사" onclick="selectType(this)">🏗️ 타워크레인</button>
-        <button class="type-btn" data-type="호이스트 운전기사" onclick="selectType(this)">⚙️ 호이스트</button>
+        <button class="type-btn" data-type="Công nhân" onclick="selectType(this)">👷 Công nhân</button>
+        <button class="type-btn" data-type="Lái cần trục tháp" onclick="selectType(this)">🏗️ Cần trục tháp</button>
+        <button class="type-btn" data-type="Lái pa lăng" onclick="selectType(this)">⚙️ Pa lăng</button>
       </div>
     </div>
-
-    <!-- 카메라 -->
     <div class="camera-section">
       <div class="camera-header">
         <span class="cam-icon">📷</span>
         <div>
-          <h3>시작 사진 촬영</h3>
-          <p>현재 위치에서 사진을 찍어주세요</p>
+          <h3>Chụp ảnh bắt đầu ca</h3>
+          <p>Vui lòng chụp ảnh tại vị trí hiện tại</p>
         </div>
       </div>
-      <video id="camera-video-start" autoplay playsinline muted></video>
-      <img id="photo-preview-start" class="" style="width:100%;max-height:260px;object-fit:cover;display:none;">
+      <video id="camera-video-start" autoplay playsinline muted style="width:100%;max-height:260px;object-fit:cover;display:block;background:#000;"></video>
+      <img id="photo-preview-start" style="width:100%;max-height:260px;object-fit:cover;display:none;">
       <canvas id="photo-canvas-start" style="display:none;"></canvas>
       <div class="camera-controls">
-        <button class="cam-btn shoot" id="shoot-btn-start" onclick="takePhoto('start')" disabled>📷 촬영</button>
-        <button class="cam-btn retake" id="retake-btn-start" onclick="retakePhoto('start')" style="display:none;">↺ 다시 찍기</button>
+        <button class="cam-btn shoot" id="shoot-btn-start" onclick="takePhoto('start')" disabled>📷 Chụp ảnh</button>
+        <button class="cam-btn retake" id="retake-btn-start" onclick="retakePhoto('start')" style="display:none;">↺ Chụp lại</button>
       </div>
     </div>
-
-    <button class="submit-btn" id="submit-start-btn" onclick="submitStart()" disabled>
-      ✅ 근무 시작 신청
-    </button>
+    <button class="submit-btn" id="submit-start-btn" onclick="submitStart()" disabled>✅ Đăng ký bắt đầu ca</button>
   </div>
 </div>
 
-<!-- ════════════════════════════ FORM: END ════════════════════════════ -->
+<!-- FORM: END -->
 <div id="screen-form-end" class="screen form-screen">
   <div class="app-header">
     <button class="back-btn" onclick="showScreen('screen-worker')">←</button>
     <div>
-      <h1>근무 종료 처리</h1>
-      <div class="subtitle">종료할 근무자를 선택해 주세요</div>
+      <h1>Kết thúc ca làm việc</h1>
+      <div class="subtitle">Chọn tên của bạn trong danh sách</div>
     </div>
   </div>
   <div class="form-body">
-    <!-- GPS -->
-    <div class="gps-card" id="gps-card-end">
+    <div class="gps-card">
       <div class="gps-dot checking" id="gps-dot-end"></div>
       <div class="gps-info">
-        <div class="gps-label" id="gps-label-end">위치 확인 중...</div>
-        <div class="gps-sub" id="gps-sub-end">GPS 신호를 받고 있습니다</div>
+        <div class="gps-label" id="gps-label-end">Đang kiểm tra vị trí...</div>
+        <div class="gps-sub" id="gps-sub-end">Đang nhận tín hiệu GPS</div>
       </div>
     </div>
-
-    <!-- 근무자 선택 -->
     <div class="form-group">
-      <label>근무자 선택 <span class="req">*</span></label>
+      <label>Chọn nhân viên <span class="req">*</span></label>
       <div class="info-banner">
-        <span class="ib-icon">ℹ️</span>
-        <span>근무 시작을 등록한 분들의 목록입니다. 본인을 선택해 주세요.</span>
+        <span>ℹ️</span>
+        <span>Danh sách nhân viên đã đăng ký bắt đầu ca. Vui lòng chọn tên của bạn.</span>
       </div>
       <div class="worker-list-select" id="end-worker-list">
         <div class="empty-state" style="padding:24px">
           <div class="es-icon">⏳</div>
-          <p>근무 시작자 목록을 불러오는 중...</p>
+          <p>Đang tải danh sách...</p>
         </div>
       </div>
     </div>
-
-    <!-- 카메라 -->
     <div class="camera-section">
       <div class="camera-header">
         <span class="cam-icon">📷</span>
         <div>
-          <h3>종료 사진 촬영</h3>
-          <p>현재 위치에서 사진을 찍어주세요</p>
+          <h3>Chụp ảnh kết thúc ca</h3>
+          <p>Vui lòng chụp ảnh tại vị trí hiện tại</p>
         </div>
       </div>
-      <video id="camera-video-end" autoplay playsinline muted></video>
+      <video id="camera-video-end" autoplay playsinline muted style="width:100%;max-height:260px;object-fit:cover;display:block;background:#000;"></video>
       <img id="photo-preview-end" style="width:100%;max-height:260px;object-fit:cover;display:none;">
       <canvas id="photo-canvas-end" style="display:none;"></canvas>
       <div class="camera-controls">
-        <button class="cam-btn shoot" id="shoot-btn-end" onclick="takePhoto('end')" disabled>📷 촬영</button>
-        <button class="cam-btn retake" id="retake-btn-end" onclick="retakePhoto('end')" style="display:none;">↺ 다시 찍기</button>
+        <button class="cam-btn shoot" id="shoot-btn-end" onclick="takePhoto('end')" disabled>📷 Chụp ảnh</button>
+        <button class="cam-btn retake" id="retake-btn-end" onclick="retakePhoto('end')" style="display:none;">↺ Chụp lại</button>
       </div>
     </div>
-
-    <button class="submit-btn" id="submit-end-btn" onclick="submitEnd()" disabled>
-      🔴 근무 종료 처리
-    </button>
+    <button class="submit-btn" id="submit-end-btn" onclick="submitEnd()" disabled>🔴 Xác nhận kết thúc ca</button>
   </div>
 </div>
 
-<!-- ════════════════════════════ ADMIN PW ════════════════════════════ -->
+<!-- ADMIN PW -->
 <div id="screen-admin-pw" class="screen">
   <div class="pw-card">
     <div class="pw-icon">🔐</div>
-    <h2>관리자 로그인</h2>
-    <p>관리자 비밀번호를 입력해 주세요</p>
+    <h2>Đăng nhập quản lý</h2>
+    <p>Vui lòng nhập mật khẩu quản lý</p>
     <div class="pw-input-wrap">
-      <input type="password" id="admin-pw-input" class="pw-input" placeholder="비밀번호" maxlength="20"
+      <input type="password" id="admin-pw-input" class="pw-input" placeholder="Mật khẩu" maxlength="20"
         onkeydown="if(event.key==='Enter')checkAdminPW()">
       <button class="pw-toggle" onclick="togglePW()">👁</button>
     </div>
-    <div class="pw-error" id="pw-error">비밀번호가 올바르지 않습니다</div>
-    <button class="pw-submit" onclick="checkAdminPW()">로그인</button>
-    <button onclick="goHome()" style="background:none;border:none;color:var(--text-sub);margin-top:16px;font-size:14px;cursor:pointer;font-family:'Noto Sans KR',sans-serif;">← 홈으로</button>
+    <div class="pw-error" id="pw-error">Mật khẩu không đúng</div>
+    <button class="pw-submit" onclick="checkAdminPW()">Đăng nhập</button>
+    <button onclick="goHome()" style="background:none;border:none;color:var(--text-sub);margin-top:16px;font-size:14px;cursor:pointer;font-family:'Noto Sans',sans-serif;">← Quay lại trang chủ</button>
   </div>
 </div>
 
-<!-- ════════════════════════════ ADMIN DASHBOARD ════════════════════════════ -->
+<!-- ADMIN DASHBOARD -->
 <div id="screen-admin" class="screen">
   <div class="app-header">
     <button class="back-btn" onclick="goHome()">←</button>
     <div>
-      <h1>관리자 대시보드</h1>
-      <div class="subtitle">초과근무 현황 및 승인</div>
+      <h1>Bảng điều khiển</h1>
+      <div class="subtitle">Quản lý tăng ca nhân viên</div>
     </div>
-    <button onclick="loadAdminData()" style="background:rgba(255,255,255,0.15);border:none;color:#fff;padding:8px 12px;border-radius:8px;font-size:13px;cursor:pointer;font-family:'Noto Sans KR',sans-serif;">새로고침</button>
+    <button onclick="showSettings()" style="background:rgba(255,255,255,0.15);border:none;color:#fff;padding:8px 10px;border-radius:8px;font-size:13px;cursor:pointer;font-family:'Noto Sans',sans-serif;">⚙️ Cài đặt</button>
+    <button onclick="loadAdminData()" style="background:rgba(255,255,255,0.15);border:none;color:#fff;padding:8px 10px;border-radius:8px;font-size:13px;cursor:pointer;font-family:'Noto Sans',sans-serif;">🔄</button>
   </div>
-
   <div class="admin-stats">
-    <div class="stat-card">
-      <div class="stat-val" id="stat-total">-</div>
-      <div class="stat-label">전체</div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-val" id="stat-pending" style="color:var(--accent)">-</div>
-      <div class="stat-label">대기중</div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-val" id="stat-approved" style="color:var(--success-light)">-</div>
-      <div class="stat-label">승인</div>
-    </div>
+    <div class="stat-card"><div class="stat-val" id="stat-total">-</div><div class="stat-label">Tổng cộng</div></div>
+    <div class="stat-card"><div class="stat-val" id="stat-pending" style="color:var(--accent)">-</div><div class="stat-label">Chờ duyệt</div></div>
+    <div class="stat-card"><div class="stat-val" id="stat-approved" style="color:var(--success-light)">-</div><div class="stat-label">Đã duyệt</div></div>
   </div>
-
   <div class="filter-tabs">
-    <button class="filter-tab active" onclick="filterRecords('all', this)">전체</button>
-    <button class="filter-tab" onclick="filterRecords('pending', this)">대기중</button>
-    <button class="filter-tab" onclick="filterRecords('approved', this)">승인</button>
-    <button class="filter-tab" onclick="filterRecords('rejected', this)">반려</button>
+    <button class="filter-tab active" onclick="filterRecords('all',this)">Tất cả</button>
+    <button class="filter-tab" onclick="filterRecords('pending',this)">Chờ duyệt</button>
+    <button class="filter-tab" onclick="filterRecords('approved',this)">Đã duyệt</button>
+    <button class="filter-tab" onclick="filterRecords('rejected',this)">Từ chối</button>
   </div>
-
-  <div class="section-title">초과근무 목록</div>
+  <div class="section-title">DANH SÁCH TĂNG CA</div>
   <div class="record-list" id="admin-record-list">
-    <div class="empty-state">
-      <div class="es-icon">📋</div>
-      <p>데이터를 불러오는 중...</p>
-    </div>
+    <div class="empty-state"><div class="es-icon">📋</div><p>Đang tải dữ liệu...</p></div>
   </div>
 </div>
 
-<!-- ════════════════════════════ ADMIN DETAIL ════════════════════════════ -->
+<!-- ADMIN DETAIL -->
 <div id="screen-admin-detail" class="screen">
   <div class="app-header">
     <button class="back-btn" onclick="showScreen('screen-admin')">←</button>
     <div>
-      <h1>근무 상세 정보</h1>
+      <h1>Chi tiết tăng ca</h1>
       <div class="subtitle" id="detail-subtitle"></div>
     </div>
   </div>
-
   <div id="detail-content" style="flex:1;overflow-y:auto;padding-bottom:20px;"></div>
 </div>
 
-<!-- ════════════════════════════ SETTINGS ════════════════════════════ -->
+<!-- SETTINGS (관리자 전용) -->
 <div id="screen-settings" class="screen">
   <div class="app-header">
-    <button class="back-btn" onclick="goHome()">←</button>
+    <button class="back-btn" onclick="showScreen('screen-admin')">←</button>
     <div>
-      <h1>환경설정</h1>
-      <div class="subtitle">앱 기본 설정</div>
+      <h1>Cài đặt</h1>
+      <div class="subtitle">Chỉ dành cho quản lý</div>
     </div>
   </div>
   <div style="flex:1;overflow-y:auto;padding-bottom:20px;">
     <div class="settings-section">
-      <h3>🗺️ GPS 현장 위치 설정</h3>
+      <h3>🗺️ Cài đặt vị trí GPS công trường</h3>
       <div class="form-group">
-        <label>허용 반경 (미터)</label>
-        <input type="number" id="cfg-radius" class="form-input" placeholder="예: 200">
+        <label>Bán kính cho phép (mét)</label>
+        <input type="number" id="cfg-radius" class="form-input" placeholder="Ví dụ: 150">
       </div>
       <div class="form-group">
-        <label>현장 위도 (Latitude)</label>
-        <input type="number" id="cfg-lat" class="form-input" placeholder="예: 21.0285" step="any">
+        <label>Vĩ độ (Latitude)</label>
+        <input type="number" id="cfg-lat" class="form-input" step="any">
       </div>
       <div class="form-group">
-        <label>현장 경도 (Longitude)</label>
-        <input type="number" id="cfg-lng" class="form-input" placeholder="예: 105.8542" step="any">
-      </div>
-    </div>
-
-    <div class="settings-section">
-      <h3>🔐 관리자 비밀번호</h3>
-      <div class="form-group">
-        <label>현재 비밀번호</label>
-        <input type="password" id="cfg-pw-current" class="form-input" placeholder="현재 비밀번호">
-      </div>
-      <div class="form-group">
-        <label>새 비밀번호</label>
-        <input type="password" id="cfg-pw-new" class="form-input" placeholder="새 비밀번호">
-      </div>
-      <div class="form-group">
-        <label>새 비밀번호 확인</label>
-        <input type="password" id="cfg-pw-confirm" class="form-input" placeholder="새 비밀번호 확인">
+        <label>Kinh độ (Longitude)</label>
+        <input type="number" id="cfg-lng" class="form-input" step="any">
       </div>
     </div>
-
     <div class="settings-section">
-      <h3>📊 구글 시트 연동</h3>
+      <h3>🔐 Đổi mật khẩu quản lý</h3>
       <div class="form-group">
-        <label>Apps Script 웹훅 URL</label>
+        <label>Mật khẩu hiện tại</label>
+        <input type="password" id="cfg-pw-current" class="form-input" placeholder="Mật khẩu hiện tại">
+      </div>
+      <div class="form-group">
+        <label>Mật khẩu mới</label>
+        <input type="password" id="cfg-pw-new" class="form-input" placeholder="Mật khẩu mới">
+      </div>
+      <div class="form-group">
+        <label>Xác nhận mật khẩu mới</label>
+        <input type="password" id="cfg-pw-confirm" class="form-input" placeholder="Nhập lại mật khẩu mới">
+      </div>
+    </div>
+    <div class="settings-section">
+      <h3>📊 Kết nối Google Sheet</h3>
+      <div class="form-group">
+        <label>URL Apps Script Webhook</label>
         <input type="url" id="cfg-sheet-url" class="form-input" placeholder="https://script.google.com/macros/s/...">
       </div>
     </div>
-
     <div style="padding:0 16px;">
-      <button class="submit-btn" onclick="saveSettings()">💾 설정 저장</button>
+      <button class="submit-btn" onclick="saveSettings()">💾 Lưu cài đặt</button>
     </div>
   </div>
 </div>
 
-<!-- ════════════════════════════ EDIT MODAL ════════════════════════════ -->
+<!-- EDIT MODAL -->
 <div class="modal-overlay" id="edit-modal">
   <div class="modal-sheet">
     <div class="modal-handle"></div>
-    <h2>📝 정보 수정</h2>
+    <h2>📝 Chỉnh sửa thông tin</h2>
     <div class="form-group">
-      <label>수정 항목</label>
-      <input type="text" id="edit-field" class="form-input" placeholder="수정할 항목명 (예: 근무 장소)">
+      <label>Mục cần chỉnh sửa</label>
+      <input type="text" id="edit-field" class="form-input" placeholder="Ví dụ: Địa điểm làm việc">
     </div>
     <div class="form-group">
-      <label>수정 내용 (Remark)</label>
-      <textarea id="edit-remark" class="form-input form-textarea" placeholder="수정 내용을 상세히 입력해 주세요..."></textarea>
+      <label>Nội dung chỉnh sửa (Ghi chú)</label>
+      <textarea id="edit-remark" class="form-input form-textarea" placeholder="Nhập nội dung chỉnh sửa chi tiết..."></textarea>
     </div>
-    <button class="submit-btn" onclick="submitEdit()">제출하기</button>
-    <button onclick="closeEditModal()" style="width:100%;margin-top:10px;padding:14px;background:none;border:none;font-family:'Noto Sans KR',sans-serif;font-size:14px;color:var(--text-sub);cursor:pointer;">취소</button>
+    <button class="submit-btn" onclick="submitEdit()">Gửi</button>
+    <button onclick="closeEditModal()" style="width:100%;margin-top:10px;padding:14px;background:none;border:none;font-family:'Noto Sans',sans-serif;font-size:14px;color:var(--text-sub);cursor:pointer;">Hủy</button>
   </div>
 </div>
 
-<!-- ════════════════════════════ OVERLAYS ════════════════════════════ -->
 <div class="loading-overlay" id="loading-overlay">
   <div class="spinner"></div>
-  <p id="loading-msg">처리 중...</p>
+  <p id="loading-msg">Đang xử lý...</p>
 </div>
 <div class="toast" id="toast"></div>
 
 <script>
 // ══════════════════════════════════════════════════
-//  CONFIG (localStorage에서 불러옴)
+//  CONFIG — Apps Script URL 여기에 고정 입력
 // ══════════════════════════════════════════════════
+const DEFAULT_SHEET_URL = 'https://script.google.com/macros/s/AKfycbyi5BpOR2vrENdBqQ_T2Avc_jYpqkgevE9xgZYGj6vys3MQQtImt4zPCh6lnjOUcDc_EQ/exec'; // ← Apps Script URL을 여기에 입력하세요
+
+// ── 기본값 (항상 이 값으로 시작, 환경설정에서 변경 가능) ──
+const DEFAULTS = {
+  lat: 20.863553,
+  lng: 106.651735,
+  radius: 150,
+  adminPW: '1234'
+};
+
+// 최초 접속 시 GPS 기본값 강제 세팅 (이전 값 덮어쓰기)
+if (!localStorage.getItem('cfg_initialized')) {
+  localStorage.setItem('cfg_sheetURL', DEFAULT_SHEET_URL);
+  localStorage.setItem('cfg_lat', DEFAULTS.lat);
+  localStorage.setItem('cfg_lng', DEFAULTS.lng);
+  localStorage.setItem('cfg_radius', DEFAULTS.radius);
+  localStorage.setItem('cfg_initialized', 'true');
+}
+
+// ── 설정 로드 ──
 let cfg = {
-  lat: parseFloat(localStorage.getItem('cfg_lat')) || 21.0285,
-  lng: parseFloat(localStorage.getItem('cfg_lng')) || 105.8542,
-  radius: parseInt(localStorage.getItem('cfg_radius')) || 200,
-  adminPW: localStorage.getItem('cfg_adminPW') || '1234',
-  sheetURL: localStorage.getItem('cfg_sheetURL') || ''
+  lat:      parseFloat(localStorage.getItem('cfg_lat'))    || DEFAULTS.lat,
+  lng:      parseFloat(localStorage.getItem('cfg_lng'))    || DEFAULTS.lng,
+  radius:   parseInt(localStorage.getItem('cfg_radius'))   || DEFAULTS.radius,
+  adminPW:  localStorage.getItem('cfg_adminPW')            || DEFAULTS.adminPW,
+  sheetURL: localStorage.getItem('cfg_sheetURL')           || DEFAULT_SHEET_URL
 };
 
 // ══════════════════════════════════════════════════
@@ -1036,39 +636,23 @@ function showScreen(id) {
   document.getElementById(id).classList.add('active');
   window.scrollTo(0, 0);
 }
-
-function goHome() {
-  stopAllStreams();
-  showScreen('screen-home');
-}
-
+function goHome() { stopAllStreams(); showScreen('screen-home'); }
 function gotoWorker() { showScreen('screen-worker'); }
-
-function gotoForm(type) {
+function gotoForm() {
   showScreen('screen-form-start');
   initCamera('start');
   checkGPS('start');
 }
-
 function gotoEndForm() {
   showScreen('screen-form-end');
   initCamera('end');
   checkGPS('end');
   loadActiveWorkers();
 }
-
 function gotoAdminPW() {
   document.getElementById('admin-pw-input').value = '';
   document.getElementById('pw-error').style.display = 'none';
   showScreen('screen-admin-pw');
-}
-
-function showSettings() {
-  document.getElementById('cfg-lat').value = cfg.lat;
-  document.getElementById('cfg-lng').value = cfg.lng;
-  document.getElementById('cfg-radius').value = cfg.radius;
-  document.getElementById('cfg-sheet-url').value = cfg.sheetURL;
-  showScreen('screen-settings');
 }
 
 // ══════════════════════════════════════════════════
@@ -1083,20 +667,18 @@ function haversineDistance(lat1, lng1, lat2, lng2) {
 }
 
 function checkGPS(form) {
-  const dot = document.getElementById(`gps-dot-${form}`);
-  const label = document.getElementById(`gps-label-${form}`);
-  const sub = document.getElementById(`gps-sub-${form}`);
+  const dot = document.getElementById('gps-dot-' + form);
+  const label = document.getElementById('gps-label-' + form);
+  const sub = document.getElementById('gps-sub-' + form);
   dot.className = 'gps-dot checking';
-  label.textContent = '위치 확인 중...';
-  sub.textContent = 'GPS 신호를 받고 있습니다';
+  label.textContent = 'Đang kiểm tra vị trí...';
+  sub.textContent = 'Đang nhận tín hiệu GPS';
 
   if (!navigator.geolocation) {
     dot.className = 'gps-dot fail';
-    label.textContent = 'GPS 미지원';
-    sub.textContent = '이 기기는 위치 서비스를 지원하지 않습니다';
+    label.textContent = 'Không hỗ trợ GPS';
     return;
   }
-
   navigator.geolocation.getCurrentPosition(
     pos => {
       const { latitude, longitude, accuracy } = pos.coords;
@@ -1104,18 +686,18 @@ function checkGPS(form) {
       const dist = haversineDistance(latitude, longitude, cfg.lat, cfg.lng);
       const inZone = dist <= cfg.radius;
       gpsOk[form] = inZone;
-      dot.className = `gps-dot ${inZone ? 'ok' : 'fail'}`;
-      label.textContent = inZone ? `✅ 허용 구역 내 (${Math.round(dist)}m)` : `❌ 허용 구역 외 (${Math.round(dist)}m)`;
-      sub.textContent = `현재 위치: ${latitude.toFixed(5)}, ${longitude.toFixed(5)} | 정확도: ±${Math.round(accuracy)}m`;
+      dot.className = 'gps-dot ' + (inZone ? 'ok' : 'fail');
+      label.textContent = inZone
+        ? '✅ Trong khu vực cho phép (' + Math.round(dist) + 'm)'
+        : '❌ Ngoài khu vực cho phép (' + Math.round(dist) + 'm)';
+      sub.textContent = 'Vị trí: ' + latitude.toFixed(5) + ', ' + longitude.toFixed(5) + ' | Độ chính xác: ±' + Math.round(accuracy) + 'm';
       updateShootBtn(form);
     },
     err => {
       gpsOk[form] = false;
       dot.className = 'gps-dot fail';
-      label.textContent = '위치 확인 실패';
-      sub.textContent = '위치 서비스를 허용해 주세요';
-      // 개발/테스트 환경에서는 GPS 무시하고 테스트 허용
-      // gpsOk[form] = true; // 테스트용 주석 해제
+      label.textContent = 'Không thể xác định vị trí';
+      sub.textContent = 'Vui lòng cho phép truy cập vị trí';
     },
     { enableHighAccuracy: true, timeout: 15000, maximumAge: 0 }
   );
@@ -1131,85 +713,62 @@ async function initCamera(form) {
       video: { facingMode: 'user', width: { ideal: 640 }, height: { ideal: 480 } }
     });
     streams[form] = stream;
-    const video = document.getElementById(`camera-video-${form}`);
+    const video = document.getElementById('camera-video-' + form);
     video.srcObject = stream;
     video.style.display = 'block';
-    document.getElementById(`photo-preview-${form}`).style.display = 'none';
-    document.getElementById(`shoot-btn-${form}`).style.display = '';
-    document.getElementById(`retake-btn-${form}`).style.display = 'none';
-    photoDone[form] = false;
-    photoData[form] = '';
+    document.getElementById('photo-preview-' + form).style.display = 'none';
+    document.getElementById('shoot-btn-' + form).style.display = '';
+    document.getElementById('retake-btn-' + form).style.display = 'none';
+    photoDone[form] = false; photoData[form] = '';
     updateShootBtn(form);
   } catch(e) {
-    showToast('카메라 접근 실패: 권한을 허용해 주세요', 'error');
+    showToast('Không thể truy cập camera. Vui lòng cấp quyền.', 'error');
   }
 }
-
 function stopStream(form) {
-  if (streams[form]) {
-    streams[form].getTracks().forEach(t => t.stop());
-    streams[form] = null;
-  }
+  if (streams[form]) { streams[form].getTracks().forEach(t => t.stop()); streams[form] = null; }
 }
-
-function stopAllStreams() {
-  stopStream('start');
-  stopStream('end');
-}
-
+function stopAllStreams() { stopStream('start'); stopStream('end'); }
 function updateShootBtn(form) {
-  const btn = document.getElementById(`shoot-btn-${form}`);
+  const btn = document.getElementById('shoot-btn-' + form);
   if (btn) btn.disabled = !gpsOk[form];
 }
-
 function takePhoto(form) {
-  const video = document.getElementById(`camera-video-${form}`);
-  const canvas = document.getElementById(`photo-canvas-${form}`);
-  const preview = document.getElementById(`photo-preview-${form}`);
+  const video = document.getElementById('camera-video-' + form);
+  const canvas = document.getElementById('photo-canvas-' + form);
+  const preview = document.getElementById('photo-preview-' + form);
   canvas.width = video.videoWidth || 640;
   canvas.height = video.videoHeight || 480;
   const ctx = canvas.getContext('2d');
-
-  // 미러 효과 제거 후 촬영
   ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
-
-  // 타임스탬프 오버레이
   const now = new Date();
   ctx.fillStyle = 'rgba(0,0,0,0.6)';
   ctx.fillRect(0, canvas.height - 36, canvas.width, 36);
   ctx.fillStyle = '#fff';
-  ctx.font = 'bold 14px Arial';
-  ctx.fillText(`📍 ${currentGPS.lat?.toFixed(5)}, ${currentGPS.lng?.toFixed(5)}  ${now.toLocaleString('ko-KR')}`, 8, canvas.height - 12);
-
+  ctx.font = 'bold 13px Arial';
+  ctx.fillText('📍 ' + (currentGPS.lat||'').toFixed(5) + ', ' + (currentGPS.lng||'').toFixed(5) + '  ' + now.toLocaleString('vi-VN'), 8, canvas.height - 12);
   const dataUrl = canvas.toDataURL('image/jpeg', 0.7);
   photoData[form] = dataUrl;
   photoDone[form] = true;
-
   preview.src = dataUrl;
   preview.style.display = 'block';
   video.style.display = 'none';
-  document.getElementById(`shoot-btn-${form}`).style.display = 'none';
-  document.getElementById(`retake-btn-${form}`).style.display = '';
+  document.getElementById('shoot-btn-' + form).style.display = 'none';
+  document.getElementById('retake-btn-' + form).style.display = '';
   stopStream(form);
   updateSubmitBtn(form);
 }
-
 function retakePhoto(form) {
-  photoDone[form] = false;
-  photoData[form] = '';
-  document.getElementById(`photo-preview-${form}`).style.display = 'none';
-  document.getElementById(`retake-btn-${form}`).style.display = 'none';
-  initCamera(form);
-  updateSubmitBtn(form);
+  photoDone[form] = false; photoData[form] = '';
+  document.getElementById('photo-preview-' + form).style.display = 'none';
+  document.getElementById('retake-btn-' + form).style.display = 'none';
+  initCamera(form); updateSubmitBtn(form);
 }
-
 function updateSubmitBtn(form) {
   if (form === 'start') {
-    const ok = photoDone.start;
-    document.getElementById('submit-start-btn').disabled = !ok;
+    document.getElementById('submit-start-btn').disabled = !photoDone.start;
   } else {
-    const ok = photoDone.end && selectedEndWorker;
-    document.getElementById('submit-end-btn').disabled = !ok;
+    document.getElementById('submit-end-btn').disabled = !(photoDone.end && selectedEndWorker);
   }
 }
 
@@ -1228,43 +787,32 @@ function selectType(btn) {
 async function submitStart() {
   const name = document.getElementById('start-name').value.trim();
   const location = document.getElementById('start-location').value.trim();
+  if (!name) { showToast('Vui lòng nhập họ và tên', 'error'); return; }
+  if (!location) { showToast('Vui lòng nhập địa điểm làm việc', 'error'); return; }
+  if (!currentWorkerType) { showToast('Vui lòng chọn loại công nhân', 'error'); return; }
+  if (!gpsOk.start) { showToast('Chỉ có thể đăng ký trong khu vực cho phép', 'error'); return; }
+  if (!photoDone.start) { showToast('Vui lòng chụp ảnh', 'error'); return; }
 
-  if (!name) { showToast('이름을 입력해 주세요', 'error'); return; }
-  if (!location) { showToast('근무 장소를 입력해 주세요', 'error'); return; }
-  if (!currentWorkerType) { showToast('작업자 유형을 선택해 주세요', 'error'); return; }
-  if (!gpsOk.start) { showToast('허용 구역 내에서만 신청 가능합니다', 'error'); return; }
-  if (!photoDone.start) { showToast('사진을 촬영해 주세요', 'error'); return; }
-
-  showLoading('근무 시작 신청 중...');
+  showLoading('Đang đăng ký bắt đầu ca...');
   const now = new Date();
   const data = {
-    action: 'start',
-    name,
-    location,
-    type: currentWorkerType,
-    startTime: now.toLocaleString('ko-KR'),
+    action: 'start', name, location, type: currentWorkerType,
+    startTime: now.toLocaleString('vi-VN'),
     startPhoto: photoData.start,
-    gpsLat: currentGPS.lat,
-    gpsLng: currentGPS.lng,
-    status: 'pending',
-    id: Date.now().toString()
+    gpsLat: currentGPS.lat, gpsLng: currentGPS.lng,
+    status: 'pending', id: Date.now().toString()
   };
-
   try {
     await sendToSheet(data);
     hideLoading();
-    showToast('근무 시작이 신청되었습니다! ✅', 'success');
-    setTimeout(() => showScreen('screen-worker'), 1800);
-    // reset
+    showToast('Đăng ký bắt đầu ca thành công! ✅', 'success');
     document.getElementById('start-name').value = '';
     document.getElementById('start-location').value = '';
     currentWorkerType = '';
     document.querySelectorAll('.type-btn').forEach(b => b.classList.remove('active'));
     photoDone.start = false; photoData.start = '';
-  } catch(e) {
-    hideLoading();
-    showToast('전송 실패: ' + e.message, 'error');
-  }
+    setTimeout(() => showScreen('screen-worker'), 1800);
+  } catch(e) { hideLoading(); showToast('Lỗi gửi dữ liệu: ' + e.message, 'error'); }
 }
 
 // ══════════════════════════════════════════════════
@@ -1272,38 +820,32 @@ async function submitStart() {
 // ══════════════════════════════════════════════════
 async function loadActiveWorkers() {
   const list = document.getElementById('end-worker-list');
-  list.innerHTML = '<div class="empty-state" style="padding:24px"><div class="es-icon">⏳</div><p>불러오는 중...</p></div>';
-
+  list.innerHTML = '<div class="empty-state" style="padding:24px"><div class="es-icon">⏳</div><p>Đang tải...</p></div>';
   try {
-    const url = cfg.sheetURL + '?action=getActive';
-    const res = await fetch(url);
+    const res = await fetch(cfg.sheetURL + '?action=getActive');
     const data = await res.json();
-    const workers = data.workers || [];
-    renderWorkerList(workers);
+    renderWorkerList(data.workers || []);
   } catch(e) {
-    list.innerHTML = '<div class="empty-state" style="padding:24px"><div class="es-icon">❌</div><p>불러오기 실패<br><small>시트 URL을 확인해 주세요</small></p></div>';
+    list.innerHTML = '<div class="empty-state" style="padding:24px"><div class="es-icon">❌</div><p>Tải thất bại<br><small>Vui lòng kiểm tra kết nối</small></p></div>';
   }
 }
-
 function renderWorkerList(workers) {
   const list = document.getElementById('end-worker-list');
   if (!workers.length) {
-    list.innerHTML = '<div class="empty-state" style="padding:24px"><div class="es-icon">🕐</div><p>현재 근무 중인 인원이 없습니다</p></div>';
+    list.innerHTML = '<div class="empty-state" style="padding:24px"><div class="es-icon">🕐</div><p>Không có nhân viên đang làm ca</p></div>';
     return;
   }
-  const icons = {'작업자':'👷','타워크레인 운전기사':'🏗️','호이스트 운전기사':'⚙️'};
+  const icons = {'Công nhân':'👷','Lái cần trục tháp':'🏗️','Lái pa lăng':'⚙️'};
   list.innerHTML = workers.map(w => `
-    <div class="worker-list-item" onclick="selectEndWorker('${w.id}', this)" data-id="${w.id}">
-      <div class="wli-icon">${icons[w.type] || '👤'}</div>
+    <div class="worker-list-item" onclick="selectEndWorker('${w.id}',this)" data-id="${w.id}">
+      <div class="wli-icon">${icons[w.type]||'👤'}</div>
       <div class="wli-info">
         <div class="wli-name">${w.name}</div>
         <div class="wli-type">${w.type} · ${w.location} · ${w.startTime}</div>
       </div>
       <div class="wli-check">✓</div>
-    </div>
-  `).join('');
+    </div>`).join('');
 }
-
 function selectEndWorker(id, el) {
   document.querySelectorAll('.worker-list-item').forEach(i => i.classList.remove('selected'));
   el.classList.add('selected');
@@ -1315,40 +857,32 @@ function selectEndWorker(id, el) {
 //  SUBMIT END
 // ══════════════════════════════════════════════════
 async function submitEnd() {
-  if (!selectedEndWorker) { showToast('근무자를 선택해 주세요', 'error'); return; }
-  if (!gpsOk.end) { showToast('허용 구역 내에서만 처리 가능합니다', 'error'); return; }
-  if (!photoDone.end) { showToast('사진을 촬영해 주세요', 'error'); return; }
-
-  showLoading('근무 종료 처리 중...');
+  if (!selectedEndWorker) { showToast('Vui lòng chọn nhân viên', 'error'); return; }
+  if (!gpsOk.end) { showToast('Chỉ có thể xác nhận trong khu vực cho phép', 'error'); return; }
+  if (!photoDone.end) { showToast('Vui lòng chụp ảnh', 'error'); return; }
+  showLoading('Đang xác nhận kết thúc ca...');
   const now = new Date();
   const data = {
-    action: 'end',
-    workerId: selectedEndWorker,
-    endTime: now.toLocaleString('ko-KR'),
-    endPhoto: photoData.end,
-    gpsLat: currentGPS.lat,
-    gpsLng: currentGPS.lng
+    action: 'end', workerId: selectedEndWorker,
+    endTime: now.toLocaleString('vi-VN'),
+    endPhoto: photoData.end, gpsLat: currentGPS.lat, gpsLng: currentGPS.lng
   };
-
   try {
     await sendToSheet(data);
     hideLoading();
-    showToast('근무 종료가 처리되었습니다! 🔴', 'success');
-    selectedEndWorker = null;
-    photoDone.end = false; photoData.end = '';
+    showToast('Xác nhận kết thúc ca thành công! 🔴', 'success');
+    selectedEndWorker = null; photoDone.end = false; photoData.end = '';
     setTimeout(() => showScreen('screen-worker'), 1800);
-  } catch(e) {
-    hideLoading();
-    showToast('전송 실패: ' + e.message, 'error');
-  }
+  } catch(e) { hideLoading(); showToast('Lỗi: ' + e.message, 'error'); }
 }
 
 // ══════════════════════════════════════════════════
-//  SHEET COMMUNICATION
+//  SHEET
 // ══════════════════════════════════════════════════
 async function sendToSheet(data) {
-  if (!cfg.sheetURL) throw new Error('시트 URL이 설정되지 않았습니다. 환경설정을 확인해 주세요.');
-  const res = await fetch(cfg.sheetURL, {
+  const url = cfg.sheetURL;
+  if (!url) throw new Error('Chưa cấu hình URL Google Sheet. Vui lòng liên hệ quản lý.');
+  const res = await fetch(url, {
     method: 'POST',
     headers: { 'Content-Type': 'text/plain' },
     body: JSON.stringify(data)
@@ -1365,7 +899,6 @@ function togglePW() {
   const inp = document.getElementById('admin-pw-input');
   inp.type = inp.type === 'password' ? 'text' : 'password';
 }
-
 function checkAdminPW() {
   const val = document.getElementById('admin-pw-input').value;
   if (val === cfg.adminPW) {
@@ -1375,192 +908,151 @@ function checkAdminPW() {
     document.getElementById('pw-error').style.display = 'block';
   }
 }
-
 async function loadAdminData() {
   document.getElementById('admin-record-list').innerHTML =
-    '<div class="empty-state"><div class="es-icon">⏳</div><p>불러오는 중...</p></div>';
-
+    '<div class="empty-state"><div class="es-icon">⏳</div><p>Đang tải...</p></div>';
   try {
-    const url = cfg.sheetURL + '?action=getAll';
-    const res = await fetch(url);
+    const res = await fetch(cfg.sheetURL + '?action=getAll');
     const data = await res.json();
     allRecords = data.records || [];
-    updateStats();
+    document.getElementById('stat-total').textContent = allRecords.length;
+    document.getElementById('stat-pending').textContent = allRecords.filter(r => r.status === 'pending').length;
+    document.getElementById('stat-approved').textContent = allRecords.filter(r => r.status === 'approved').length;
     renderRecords(currentFilter);
   } catch(e) {
     document.getElementById('admin-record-list').innerHTML =
-      '<div class="empty-state"><div class="es-icon">❌</div><p>불러오기 실패<br><small>시트 URL 및 연결을 확인해 주세요</small></p></div>';
+      '<div class="empty-state"><div class="es-icon">❌</div><p>Tải thất bại<br><small>Kiểm tra URL và kết nối</small></p></div>';
   }
 }
-
-function updateStats() {
-  document.getElementById('stat-total').textContent = allRecords.length;
-  document.getElementById('stat-pending').textContent = allRecords.filter(r => r.status === 'pending').length;
-  document.getElementById('stat-approved').textContent = allRecords.filter(r => r.status === 'approved').length;
-}
-
 function filterRecords(filter, el) {
   currentFilter = filter;
   document.querySelectorAll('.filter-tab').forEach(t => t.classList.remove('active'));
   el.classList.add('active');
   renderRecords(filter);
 }
-
 function renderRecords(filter) {
   const list = document.getElementById('admin-record-list');
   const filtered = filter === 'all' ? allRecords : allRecords.filter(r => r.status === filter);
-
   if (!filtered.length) {
-    list.innerHTML = '<div class="empty-state"><div class="es-icon">📭</div><p>해당 항목이 없습니다</p></div>';
+    list.innerHTML = '<div class="empty-state"><div class="es-icon">📭</div><p>Không có dữ liệu</p></div>';
     return;
   }
-
-  const statusLabel = { pending: '대기중', approved: '승인', rejected: '반려' };
+  const lbl = { pending:'Chờ duyệt', approved:'Đã duyệt', rejected:'Từ chối', edited:'Đã chỉnh sửa' };
   list.innerHTML = filtered.map(r => `
     <div class="record-card ${r.status}" onclick="showDetail('${r.id}')">
       <div class="rc-top">
         <span class="rc-name">${r.name}</span>
-        <span class="status-badge ${r.status}">${statusLabel[r.status] || r.status}</span>
+        <span class="status-badge ${r.status}">${lbl[r.status]||r.status}</span>
       </div>
       <div class="rc-meta">
         <span>👷 ${r.type}</span>
         <span>📍 ${r.location}</span>
         <span>🕐 ${r.startTime}</span>
-        ${r.endTime ? `<span>🏁 ${r.endTime}</span>` : '<span style="color:var(--accent)">⏳ 근무중</span>'}
+        ${r.endTime ? '<span>🏁 '+r.endTime+'</span>' : '<span style="color:var(--accent)">⏳ Đang làm việc</span>'}
       </div>
-      ${r.remark ? `<div style="margin-top:8px;font-size:12px;color:var(--text-sub);background:var(--bg);padding:6px 10px;border-radius:6px;">📝 ${r.remark}</div>` : ''}
-    </div>
-  `).join('');
+      ${r.remark ? '<div style="margin-top:8px;font-size:12px;color:var(--text-sub);background:var(--bg);padding:6px 10px;border-radius:6px;">📝 '+r.remark+'</div>' : ''}
+    </div>`).join('');
 }
-
 function showDetail(id) {
   currentRecord = allRecords.find(r => r.id === id);
   if (!currentRecord) return;
-
   const r = currentRecord;
-  document.getElementById('detail-subtitle').textContent = `${r.name} · ${r.startTime}`;
+  const lbl = { pending:'Chờ duyệt', approved:'Đã duyệt', rejected:'Từ chối', edited:'Đã chỉnh sửa' };
+  document.getElementById('detail-subtitle').textContent = r.name + ' · ' + r.startTime;
 
-  const statusLabel = { pending: '대기중', approved: '승인', rejected: '반려' };
   let html = `
     <div class="detail-section">
-      <h3>📋 기본 정보</h3>
-      <div class="detail-row"><span class="dr-label">이름</span><span class="dr-val">${r.name}</span></div>
-      <div class="detail-row"><span class="dr-label">작업자 유형</span><span class="dr-val">${r.type}</span></div>
-      <div class="detail-row"><span class="dr-label">근무 장소</span><span class="dr-val">${r.location}</span></div>
-      <div class="detail-row"><span class="dr-label">승인 상태</span><span class="dr-val"><span class="status-badge ${r.status}">${statusLabel[r.status] || r.status}</span></span></div>
+      <h3>📋 Thông tin cơ bản</h3>
+      <div class="detail-row"><span class="dr-label">Họ và tên</span><span class="dr-val">${r.name}</span></div>
+      <div class="detail-row"><span class="dr-label">Loại công nhân</span><span class="dr-val">${r.type}</span></div>
+      <div class="detail-row"><span class="dr-label">Địa điểm</span><span class="dr-val">${r.location}</span></div>
+      <div class="detail-row"><span class="dr-label">Trạng thái</span><span class="dr-val"><span class="status-badge ${r.status}">${lbl[r.status]||r.status}</span></span></div>
     </div>
-
     <div class="detail-section">
-      <h3>⏱️ 근무 시간</h3>
-      <div class="detail-row"><span class="dr-label">시작 시각</span><span class="dr-val">${r.startTime || '-'}</span></div>
-      <div class="detail-row"><span class="dr-label">종료 시각</span><span class="dr-val">${r.endTime || '근무중'}</span></div>
-      <div class="detail-row"><span class="dr-label">GPS 좌표</span><span class="dr-val" style="font-family:'JetBrains Mono',monospace;font-size:12px">${r.gpsLat}, ${r.gpsLng}</span></div>
+      <h3>⏱️ Thời gian làm việc</h3>
+      <div class="detail-row"><span class="dr-label">Bắt đầu</span><span class="dr-val">${r.startTime||'-'}</span></div>
+      <div class="detail-row"><span class="dr-label">Kết thúc</span><span class="dr-val">${r.endTime||'Đang làm việc'}</span></div>
+      <div class="detail-row"><span class="dr-label">Tọa độ GPS</span><span class="dr-val" style="font-size:12px">${r.gpsLat}, ${r.gpsLng}</span></div>
     </div>
-
     <div class="detail-section">
-      <h3>📷 시작 사진</h3>
-      ${r.startPhoto
-        ? `<img src="${r.startPhoto}" class="photo-preview-admin">`
-        : '<div class="photo-placeholder">사진 없음</div>'}
+      <h3>📷 Ảnh bắt đầu ca</h3>
+      ${r.startPhoto ? '<img src="'+r.startPhoto+'" class="photo-preview-admin">' : '<div class="photo-placeholder">Không có ảnh</div>'}
     </div>`;
 
   if (r.endTime) {
-    html += `
-    <div class="detail-section">
-      <h3>📷 종료 사진</h3>
-      ${r.endPhoto
-        ? `<img src="${r.endPhoto}" class="photo-preview-admin">`
-        : '<div class="photo-placeholder">사진 없음</div>'}
+    html += `<div class="detail-section">
+      <h3>📷 Ảnh kết thúc ca</h3>
+      ${r.endPhoto ? '<img src="'+r.endPhoto+'" class="photo-preview-admin">' : '<div class="photo-placeholder">Không có ảnh</div>'}
     </div>`;
   }
-
   if (r.remark) {
-    html += `
-    <div class="detail-section">
-      <h3>📝 수정 내용 (Remark)</h3>
+    html += `<div class="detail-section">
+      <h3>📝 Ghi chú chỉnh sửa</h3>
       <p style="font-size:14px;line-height:1.6">${r.remark}</p>
     </div>`;
   }
 
   document.getElementById('detail-content').innerHTML = html;
-
-  // 버튼 (승인 완료면 버튼 비활성화)
-  const actionsDiv = document.createElement('div');
-  actionsDiv.className = 'admin-actions';
-  if (r.status === 'pending') {
-    actionsDiv.innerHTML = `
-      <button class="admin-action-btn btn-approve" onclick="approveRecord('${r.id}')">
-        <span class="aab-icon">✅</span> 승인
-      </button>
-      <button class="admin-action-btn btn-reject" onclick="rejectRecord('${r.id}')">
-        <span class="aab-icon">❌</span> 반려
-      </button>
-      <button class="admin-action-btn btn-edit" onclick="openEditModal('${r.id}')">
-        <span class="aab-icon">✏️</span> 수정
-      </button>`;
+  const actDiv = document.createElement('div');
+  actDiv.className = 'admin-actions';
+  if (r.status === 'pending' || r.status === 'edited') {
+    actDiv.innerHTML = `
+      <button class="admin-action-btn btn-approve" onclick="approveRecord('${r.id}')"><span class="aab-icon">✅</span>Duyệt</button>
+      <button class="admin-action-btn btn-reject" onclick="rejectRecord('${r.id}')"><span class="aab-icon">❌</span>Từ chối</button>
+      <button class="admin-action-btn btn-edit" onclick="openEditModal('${r.id}')"><span class="aab-icon">✏️</span>Chỉnh sửa</button>`;
   } else {
-    actionsDiv.innerHTML = `
-      <button class="admin-action-btn btn-edit" onclick="openEditModal('${r.id}')">
-        <span class="aab-icon">✏️</span> 정보 수정
-      </button>`;
+    actDiv.innerHTML = `<button class="admin-action-btn btn-edit" onclick="openEditModal('${r.id}')"><span class="aab-icon">✏️</span>Chỉnh sửa thông tin</button>`;
   }
-  document.getElementById('detail-content').appendChild(actionsDiv);
-
+  document.getElementById('detail-content').appendChild(actDiv);
   showScreen('screen-admin-detail');
 }
-
 async function approveRecord(id) {
-  if (!confirm('이 초과근무를 승인하시겠습니까?')) return;
-  showLoading('승인 처리 중...');
+  if (!confirm('Duyệt tăng ca này?')) return;
+  showLoading('Đang xử lý...');
   try {
     await sendToSheet({ action: 'approve', id });
-    hideLoading();
-    showToast('승인되었습니다 ✅', 'success');
-    await loadAdminData();
-    showScreen('screen-admin');
-  } catch(e) { hideLoading(); showToast('처리 실패', 'error'); }
+    hideLoading(); showToast('Đã duyệt ✅', 'success');
+    await loadAdminData(); showScreen('screen-admin');
+  } catch(e) { hideLoading(); showToast('Lỗi xử lý', 'error'); }
 }
-
 async function rejectRecord(id) {
-  if (!confirm('이 초과근무를 반려하시겠습니까?')) return;
-  showLoading('반려 처리 중...');
+  if (!confirm('Từ chối tăng ca này?')) return;
+  showLoading('Đang xử lý...');
   try {
     await sendToSheet({ action: 'reject', id });
-    hideLoading();
-    showToast('반려되었습니다', 'error');
-    await loadAdminData();
-    showScreen('screen-admin');
-  } catch(e) { hideLoading(); showToast('처리 실패', 'error'); }
+    hideLoading(); showToast('Đã từ chối', 'error');
+    await loadAdminData(); showScreen('screen-admin');
+  } catch(e) { hideLoading(); showToast('Lỗi xử lý', 'error'); }
 }
-
 function openEditModal(id) {
   document.getElementById('edit-field').value = '';
   document.getElementById('edit-remark').value = '';
   document.getElementById('edit-modal').classList.add('open');
 }
-
-function closeEditModal() {
-  document.getElementById('edit-modal').classList.remove('open');
-}
-
+function closeEditModal() { document.getElementById('edit-modal').classList.remove('open'); }
 async function submitEdit() {
   const field = document.getElementById('edit-field').value.trim();
   const remark = document.getElementById('edit-remark').value.trim();
-  if (!field || !remark) { showToast('항목과 내용을 모두 입력해 주세요', 'error'); return; }
+  if (!field || !remark) { showToast('Vui lòng nhập đầy đủ thông tin', 'error'); return; }
   closeEditModal();
-  showLoading('수정 정보 제출 중...');
+  showLoading('Đang gửi...');
   try {
     await sendToSheet({ action: 'edit', id: currentRecord.id, field, remark });
-    hideLoading();
-    showToast('수정 내용이 제출되었습니다 📝', 'success');
-    await loadAdminData();
-    showScreen('screen-admin');
-  } catch(e) { hideLoading(); showToast('제출 실패', 'error'); }
+    hideLoading(); showToast('Đã gửi thông tin chỉnh sửa 📝', 'success');
+    await loadAdminData(); showScreen('screen-admin');
+  } catch(e) { hideLoading(); showToast('Lỗi gửi', 'error'); }
 }
 
 // ══════════════════════════════════════════════════
 //  SETTINGS
 // ══════════════════════════════════════════════════
+function showSettings() {
+  document.getElementById('cfg-lat').value = cfg.lat;
+  document.getElementById('cfg-lng').value = cfg.lng;
+  document.getElementById('cfg-radius').value = cfg.radius;
+  document.getElementById('cfg-sheet-url').value = cfg.sheetURL;
+  showScreen('screen-settings');
+}
 function saveSettings() {
   const newLat = parseFloat(document.getElementById('cfg-lat').value);
   const newLng = parseFloat(document.getElementById('cfg-lng').value);
@@ -1571,49 +1063,40 @@ function saveSettings() {
   const confirmPW = document.getElementById('cfg-pw-confirm').value;
 
   if (isNaN(newLat) || isNaN(newLng) || isNaN(newRadius)) {
-    showToast('GPS 정보를 올바르게 입력해 주세요', 'error'); return;
+    showToast('Vui lòng nhập đúng thông tin GPS', 'error'); return;
   }
-
   if (newPW) {
-    if (curPW !== cfg.adminPW) { showToast('현재 비밀번호가 올바르지 않습니다', 'error'); return; }
-    if (newPW !== confirmPW) { showToast('새 비밀번호가 일치하지 않습니다', 'error'); return; }
-    cfg.adminPW = newPW;
-    localStorage.setItem('cfg_adminPW', newPW);
+    if (curPW !== cfg.adminPW) { showToast('Mật khẩu hiện tại không đúng', 'error'); return; }
+    if (newPW !== confirmPW) { showToast('Mật khẩu mới không khớp', 'error'); return; }
+    cfg.adminPW = newPW; localStorage.setItem('cfg_adminPW', newPW);
   }
-
   cfg.lat = newLat; cfg.lng = newLng; cfg.radius = newRadius; cfg.sheetURL = newURL;
   localStorage.setItem('cfg_lat', newLat);
   localStorage.setItem('cfg_lng', newLng);
   localStorage.setItem('cfg_radius', newRadius);
   localStorage.setItem('cfg_sheetURL', newURL);
-
-  showToast('설정이 저장되었습니다 💾', 'success');
-  setTimeout(goHome, 1500);
+  showToast('Đã lưu cài đặt 💾', 'success');
+  setTimeout(() => showScreen('screen-admin'), 1500);
 }
 
 // ══════════════════════════════════════════════════
 //  UI HELPERS
 // ══════════════════════════════════════════════════
-function showToast(msg, type = '') {
+function showToast(msg, type='') {
   const t = document.getElementById('toast');
-  t.textContent = msg;
-  t.className = `toast ${type} show`;
+  t.textContent = msg; t.className = 'toast ' + type + ' show';
   setTimeout(() => t.classList.remove('show'), 3000);
 }
-
-function showLoading(msg = '처리 중...') {
+function showLoading(msg='Đang xử lý...') {
   document.getElementById('loading-msg').textContent = msg;
   document.getElementById('loading-overlay').classList.add('show');
 }
+function hideLoading() { document.getElementById('loading-overlay').classList.remove('show'); }
 
-function hideLoading() {
-  document.getElementById('loading-overlay').classList.remove('show');
-}
-
-// 초기화
-document.addEventListener('DOMContentLoaded', () => {
-  // 환경설정 로드 완료
-});
+// 관리자 로그인 후 설정 화면 진입 시 값 채우기
+document.getElementById('screen-settings').addEventListener('transitionend', () => {});
+// settings 화면 진입 시 자동 로드
+const _origShowScreen = showScreen;
 </script>
 </body>
 </html>
